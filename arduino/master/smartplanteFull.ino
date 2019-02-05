@@ -73,9 +73,9 @@ void requete(int hauteur) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("connection OK");
   client.print("GET http://thibaultpech.000webhostapp.com/acq2donee.php?DATA="); //url envoyé par le client arduino | viens du vieux tp 2018
-  client.print(hauteur); //10 pour 10 chiffres après la virgule
+  client.print(hauteur); //var 1
   client.print("&DATA2=");
-  client.print("pasDeValeur"); //0 pour 0 chiffre après la virgule
+  client.print("pasDeValeur"); //var 2 | add 2nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
   Serial.println("Valeur Hauteur envoyée");
@@ -83,9 +83,5 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   }
 else {
   Serial.println("connection failed");
-  }
-if (client.available()) {
-  char c = client.read();
-  //Serial.print(c); //ecrire dans le moniteur série les données du site web
   }
 }
