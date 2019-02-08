@@ -38,6 +38,8 @@ margin-top: 0;
 }
 
 .txtb{
+margin-left: auto;
+margin-right: auto;
 display: block;
 box-sizing: border-box;
 width: 240px;
@@ -49,4 +51,28 @@ outline: none;
 margin: 10px 0;
 border-radius: 4px;
 box-shadow: 1px 1px #2f3542;
+transition: 0.4s;
+}
+
+.txtb:hover{
+  width: 250px;
+  height: 50px;
+  transition: 0.4s;
+  font-size: medium;
+}
+
+.login-btn{
+  width: 210px;
+  height: 25px;
+  background: #a4b0be;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 1px 1px #2f3542;
+  box-sizing: border-box;
+}
+
+.hide-login-btn{
+  position: absolute;
+  top: 0;
+  right: 0;
 }
