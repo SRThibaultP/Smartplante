@@ -68,7 +68,7 @@ if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dy
 void requete(int hauteur) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://projetsmartplante.000webhostapp.com/sendVarTest/varWriter.php?DATA="); //url envoyé par le client arduino | viens du vieux tp 2018
+  client.print("GET http://projetsmartplante.000webhostapp.com/Test/varWriter.php?DATA="); //url envoyé par le client arduino
   client.print(hauteur); //var 1
   client.print("&DATA2=");
   client.print("pasDeValeur"); //var 2 | add 2nd valeur here
