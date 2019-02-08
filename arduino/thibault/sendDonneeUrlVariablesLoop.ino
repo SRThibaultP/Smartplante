@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <SPI.h>
 #include <Ethernet.h>
 
@@ -6,9 +5,6 @@ byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //adresse mac shield ethernet
 IPAddress server(178,32,28,116); //adresse ip arduino
 EthernetClient client;
 float distance,humidite; //fake variables
-
-void requete();
-void connexion();
 
 void setup() {
 Serial.begin(9600);
