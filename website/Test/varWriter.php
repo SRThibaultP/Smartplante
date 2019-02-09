@@ -1,6 +1,6 @@
 <?php
 $hauteur = $_GET['hauteur']; //ben (val num sans virgule)
-$ventilateur = $_GET['ventilateur']; //romain (0/1?)
+$ventilateur = $_GET['ventilateur']; //romain (valeur en 0/1?)
 $humidité = $_GET['humidité']; //flo
 $QO = $_GET['QO']; //flo
 echo nl2br("hauteur=$hauteur \n ventilateur=$ventilateur \n humidité=$humidité \n QO=$QO");
