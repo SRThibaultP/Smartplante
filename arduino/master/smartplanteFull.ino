@@ -10,20 +10,19 @@ IPAddress server(178,32,28,116); //adresse ip arduino
 EthernetClient client;
 
 Ultrasonic ultrasonic(8);
- // Initialisation des variables
+// Initialisation des variables
 int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
-int ae = 0;
+int ae = 0;   //buffer for hauteur
 
 void setup() {
-Serial.begin(9600);
 Serial.begin(9600);  //Initialisation Moniteur Serie
 Motor.begin(I2C_ADDRESS); //Localisation du moteur
 pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
 }
 
-void loop(){
+void loop() {
 connexion();
 ae = ProgMoteur(pir2, pir1);
 requete(ae);
@@ -36,7 +35,7 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   if(ValMarche == 0 && ValStop == 0) {
     Serial.println("Mise en marche du moteur");
     Motor.speed(MOTOR1, 50); //Mise en marche du moteur
-    while(ValStop == 0){ //Tant que capteur 1 detecte une présence on continue la montée du moteur
+    while(ValStop == 0) { //Tant que capteur 1 detecte une présence on continue la montée du moteur
       Motor.speed(MOTOR1, 50);
       Serial.println("Moteur stade Marche");
       ValStop = digitalRead(CaptStop);
@@ -61,17 +60,21 @@ if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dy
     Serial.println("Failed to configure Ethernet using DHCP");
     for(;;);
     delay(1000);
-    Serial.println("connecting...");
+    Serial.println("*Connexion");
     }
   }
 
 void requete(int hauteur) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://projetsmartplante.000webhostapp.com/Test/varWriter.php?DATA="); //url envoyé par le client arduino
-  client.print(hauteur); //var 1
-  client.print("&DATA2=");
+  client.print("GET http://projetsmartplante.000webhostapp.com/Test/varWriter.php?hauteur="); //url envoyé par le client arduino
+  client.print(hauteur);       //var 1
+  client.print("&ventilateur");
   client.print("pasDeValeur"); //var 2 | add 2nd valeur here
+  client.print("&humidité");
+  client.print("pasDeValeur"); //var 3 | add 3nd valeur here
+  client.print("&QO");
+  client.print("pasDeValeur"); //var 4 | add 4nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
   Serial.println("**Valeurs envoyées");
