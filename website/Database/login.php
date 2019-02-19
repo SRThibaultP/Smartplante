@@ -6,9 +6,9 @@
 
  function connexion()
  {
-     global $host, $login, $password, $base;
-	 $db = mysqli_connect($host, $login, $password, $base);
-	 mysqli_select_db($db,$base);
-     return $db;
+    global $host, $login, $password, $base;
+    $db = mysqli_connect($host, $login, $password, $base);
+    mysqli_select_db($db,$base);
+    return $db;
  }
 ?>
