@@ -15,6 +15,11 @@ int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
 int ae = 0;   //buffer for hauteur
 
+//A SUPPRIMER LORS DU CODE FINAL
+//int humidité,QO = 42;
+//int ventilateur = 0;
+//A SUPPRIMER LORS DU CODE FINAL
+
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
 Motor.begin(I2C_ADDRESS); //Localisation du moteur
@@ -64,17 +69,17 @@ if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dy
   }
 }
 
-void requete(int hauteur) {
+void requete(int hauteur; int ventilateur; int humidité; int QO) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://projetsmartplante.000webhostapp.com/Test/varWriter.php?hauteur="); //url envoyé par le client arduino
+  client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url envoyé par le client arduino
   client.print(hauteur);       //var 1
   client.print("&ventilateur");
-  client.print("pasDeValeur"); //var 2 | add 2nd valeur here
-  client.print("&humidité");
-  client.print("pasDeValeur"); //var 3 | add 3nd valeur here
+  client.print(ventilateur); //var 2 | add 2nd valeur here
+  client.print("&humidité"); //changer nom var? (start base sheets var)
+  client.print(humidité); //var 3 | add 3nd valeur here
   client.print("&QO");
-  client.print("pasDeValeur"); //var 4 | add 4nd valeur here
+  client.print(QO); //var 4 | add 4nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
   Serial.println("**Valeurs envoyées");
