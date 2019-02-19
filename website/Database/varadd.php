@@ -5,7 +5,7 @@
     $db=connexion();
 	  $sql = "INSERT INTO id8552472_dbvariables (hauteur,ventilateur,humidité,QO)
     VALUES ('$_POST[hauteur]', '$_POST[ventilateur]', '$_POST[humidité]', '$_POST[QO]')";
-	  mysqli_query($db,$sql) or die(mysqli_error($db));
+	  mysqli_query($db,$sql) or die(mysqli_error());
 	}
 
   else
