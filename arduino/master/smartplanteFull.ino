@@ -57,12 +57,12 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
 
 void connexion () {
 if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dynamique)
-    Serial.println("Failed to configure Ethernet using DHCP");
-    for(;;);
-    delay(1000);
-    Serial.println("*Connexion");
-    }
+  Serial.println("Failed to configure Ethernet using DHCP");
+  for(;;);
+  delay(1000);
+  Serial.println("*Connexion");
   }
+}
 
 void requete(int hauteur) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
