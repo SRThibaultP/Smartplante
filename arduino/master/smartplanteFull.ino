@@ -16,9 +16,13 @@ int pir2 = 2; //Capteur de mise en marche
 int ae = 0;   //buffer for hauteur
 
 //A SUPPRIMER LORS DU CODE FINAL
-//int humidité,QO = 42;
-//int ventilateur = 0;
+float humidite,QO = 42.24;
+int ventilateur = 0;
 //A SUPPRIMER LORS DU CODE FINAL
+
+
+//********************************************************************************************************
+
 
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
@@ -27,11 +31,19 @@ pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
 }
 
+
+//********************************************************************************************************
+
+
 void loop() {
 connexion();
 ae = ProgMoteur(pir2, pir1);
-requete(ae);
+requete(ae,humidite,QO,ventilateur);
 }
+
+
+//********************************************************************************************************
+
 
 int ProgMoteur(int CaptMarche, int CaptStop) {
   int ValMarche = digitalRead(CaptMarche);
@@ -60,6 +72,10 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   return(Distance);
 }
 
+
+//********************************************************************************************************
+
+
 void connexion () {
 if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dynamique)
   Serial.println("Failed to configure Ethernet using DHCP");
@@ -69,7 +85,11 @@ if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dy
   }
 }
 
-void requete(int hauteur; int ventilateur; int humidité; int QO) {
+
+//********************************************************************************************************
+
+
+void requete(int hauteur, int ventilateur, int humidite, int QO) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
   client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url envoyé par le client arduino
@@ -77,7 +97,7 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   client.print("&ventilateur");
   client.print(ventilateur); //var 2 | add 2nd valeur here
   client.print("&humidité"); //changer nom var? (start base sheets var)
-  client.print(humidité); //var 3 | add 3nd valeur here
+  client.print(humidite); //var 3 | add 3nd valeur here | changer nom var? (start base sheets var)
   client.print("&QO");
   client.print(QO); //var 4 | add 4nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
