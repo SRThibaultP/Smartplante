@@ -6,8 +6,8 @@ IPAddress server(178,32,28,116); //adresse ip arduino
 EthernetClient client;
 
 //A SUPPRIMER LORS DU CODE FINAL
-float ae,humidite,QO = 42.24;
-int ventilateur = 0; //db limit
+float ae,humidite,QO = 48.35;
+int ventilateur = 1; //db limit
 //A SUPPRIMER LORS DU CODE FINAL
 
 void setup() {
@@ -32,17 +32,22 @@ void requete(int hauteur, int ventilateur, int humidite, int QO) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
   client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url envoyé par le client arduino
-  client.print(hauteur);       //var 1
+  client.print("25.686");       //var 1
   client.print("&ventilateur");
-  client.print(ventilateur); //var 2 | add 2nd valeur here
+  client.print("1"); //var 2 | add 2nd valeur here
   client.print("&humidité"); //changer nom var? (start base sheets var)
-  client.print(humidite); //var 3 | add 3nd valeur here | changer nom var? (start base sheets var)
+  client.print("15.12"); //var 3 | add 3nd valeur here | changer nom var? (start base sheets var)
   client.print("&QO");
-  client.print(QO); //var 4 | add 4nd valeur here
+  client.print("98"); //var 4 | add 4nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
-  Serial.println("**Valeurs envoyées");
+  //Serial.print(client.read());
+  //Serial.println("**Valeurs envoyées");
   client.stop();
+  if (client.available()) {
+    char c = client.read();
+    Serial.print(c); //ecrire dans le moniteur série les données du site web
+  }
   }
 
 else {

@@ -16,8 +16,8 @@ int pir2 = 2; //Capteur de mise en marche
 int ae = 0;   //buffer for hauteur
 
 //A SUPPRIMER LORS DU CODE FINAL
-float humidite,QO = 42.24;
-int ventilateur = 0;
+float humidite,QO = 99.999;
+int ventilateur = 1;
 //A SUPPRIMER LORS DU CODE FINAL
 
 
@@ -102,8 +102,10 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   client.print(QO); //var 4 | add 4nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
-  Serial.println("**Valeurs envoyées");
+  Serial.print(client.read());
+  //Serial.println("**Valeurs envoyées");
   client.stop();
+  delay(5000); //pb db requete
   }
 
 else {
