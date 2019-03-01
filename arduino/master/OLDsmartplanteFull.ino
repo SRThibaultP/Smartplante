@@ -10,24 +10,40 @@ IPAddress server(178,32,28,116); //adresse ip arduino
 EthernetClient client;
 
 Ultrasonic ultrasonic(8);
- // Initialisation des variables
+// Initialisation des variables
 int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
-int ae = 0;
+int ae = 0;   //buffer for hauteur
+
+//A SUPPRIMER LORS DU CODE FINAL
+float humidite = 99.999;
+int ventilateur = 1;
+//A SUPPRIMER LORS DU CODE FINAL
+
+
+//********************************************************************************************************
+
 
 void setup() {
-Serial.begin(9600);
 Serial.begin(9600);  //Initialisation Moniteur Serie
 Motor.begin(I2C_ADDRESS); //Localisation du moteur
 pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
 }
 
-void loop(){
+
+//********************************************************************************************************
+
+
+void loop() {
 connexion();
 ae = ProgMoteur(pir2, pir1);
-requete(ae);
+requete(ae,ventilateur,humidite);
 }
+
+
+//********************************************************************************************************
+
 
 int ProgMoteur(int CaptMarche, int CaptStop) {
   int ValMarche = digitalRead(CaptMarche);
@@ -36,7 +52,7 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   if(ValMarche == 0 && ValStop == 0) {
     Serial.println("Mise en marche du moteur");
     Motor.speed(MOTOR1, 50); //Mise en marche du moteur
-    while(ValStop == 0){ //Tant que capteur 1 detecte une présence on continue la montée du moteur
+    while(ValStop == 0) { //Tant que capteur 1 detecte une présence on continue la montée du moteur
       Motor.speed(MOTOR1, 50);
       Serial.println("Moteur stade Marche");
       ValStop = digitalRead(CaptStop);
@@ -56,26 +72,40 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   return(Distance);
 }
 
+
+//********************************************************************************************************
+
+
 void connexion () {
 if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dynamique)
-    Serial.println("Failed to configure Ethernet using DHCP");
-    for(;;);
-    delay(1000);
-    Serial.println("connecting...");
-    }
+  Serial.println("Failed to configure Ethernet using DHCP");
+  for(;;);
+  delay(1000);
+  Serial.println("*Connexion");
   }
+}
 
-void requete(int hauteur) {
+
+//********************************************************************************************************
+
+
+void requete(int hauteur, int ventilateur, int humidite) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://thibaultpech.000webhostapp.com/acq2donee.php?DATA="); //url envoyé par le client arduino | viens du vieux tp 2018
-  client.print(hauteur); //var 1
-  client.print("&DATA2=");
-  client.print("pasDeValeur"); //var 2 | add 2nd valeur here
+  client.print("GET http://projetsmartplante.000webhostapp.com/Test/varWriter.php?hauteur="); //url envoyé par le client arduino
+  client.print(hauteur);       //var 1
+  client.print("&ventilateur=");
+  client.print(ventilateur); //var 2 | add 2nd valeur here
+  client.print("&humidité="); //changer nom var? (start base sheets var)
+  client.print(humidite); //var 3 | add 3nd valeur here | changer nom var? (start base sheets var)
+  //client.print("&QO=");
+  //client.print(QO); //var 4 | add 4nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
-  Serial.println("**Valeurs envoyées");
+  Serial.print(client.read(client.print("GET https://projetsmartplante.000webhostapp.com/Test/debugVar.txt")));
+  //Serial.println("**Valeurs envoyées");
   client.stop();
+  delay(5000); //pb db requete
   }
 
 else {
