@@ -8,4 +8,3 @@ fwrite($file, $data);
 fwrite($file, " et ");
 fwrite($file, $data2);
 fclose($file);
-?>

@@ -1,20 +1,17 @@
-<?php
-$hauteur = $_GET['hauteur']; //ben (val num sans virgule)
-$ventilateur = $_GET['ventilateur']; //romain (valeur en 0/1?)
-$humidité = $_GET['humidité']; //flo
-$QO = $_GET['QO']; //flo
-echo nl2br("hauteur=$hauteur \n ventilateur=$ventilateur \n humidité=$humidité \n QO=$QO");
-$file=fopen("debugVar.txt","w");
-fwrite($file,"hauteur=");
-fwrite($file, $hauteur);
-fwrite($file, "\r\n");
-fwrite($file,"ventilateur=");
-fwrite($file, $ventilateur);
-fwrite($file, "\r\n");
-fwrite($file,"humidité=");
-fwrite($file, $humidité);
-fwrite($file, "\r\n");
-fwrite($file,"QO=");
-fwrite($file, $QO);
-fclose($file);
+<?php
+$hauteur = $_GET['hauteur'];
+$ventilateur = $_GET['ventilateur'];
+$humidite = $_GET['humidite'];
+$eau = $_GET['eau'];
+echo "Data ".$hauteur." et ".$humidite." et ".$ventilateur." et ".$eau."bien acquise sur le serveur ";
+$file=fopen("bank.txt","w");
+fwrite($file,"hauteur:");
+fwrite($file, $hauteur);
+fwrite($file, " ventilateur:");
+fwrite($file, $ventilateur);
+fwrite($file, " humidite:");
+fwrite($file, $humidite);
+fwrite($file, " eau:");
+fwrite($file, $eau);
+fclose($file);
 ?>
