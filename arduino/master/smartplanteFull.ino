@@ -16,7 +16,6 @@ int pir2 = 2; //Capteur de mise en marche
 int ae = 0;
 
 void setup() {
-Serial.begin(9600);
 Serial.begin(9600);  //Initialisation Moniteur Serie
 Motor.begin(I2C_ADDRESS); //Localisation du moteur
 pinMode(pir1,INPUT);  //Mode Réception des données
