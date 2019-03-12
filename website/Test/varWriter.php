@@ -4,7 +4,7 @@ $ventilateur = $_GET['ventilateur'];
 $humidite = $_GET['humidite'];
 $eau = $_GET['eau'];
 echo "Data ".$hauteur." et ".$humidite." et ".$ventilateur." et ".$eau."bien acquise sur le serveur ";
-$file=fopen("bank.txt","w");
+$file=fopen("debugVar.txt","w");
 fwrite($file,"hauteur:");
 fwrite($file, $hauteur);
 fwrite($file, " ventilateur:");
