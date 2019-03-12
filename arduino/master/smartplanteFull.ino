@@ -5,8 +5,7 @@
 
 #define I2C_ADDRESS 0x0f
 
-byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //adresse mac shield ethernet
-IPAddress server(178,32,28,116); //adresse ip arduino
+byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //shield ethernet
 EthernetClient client;
 
 Ultrasonic ultrasonic(8);
@@ -16,7 +15,6 @@ int pir2 = 2; //Capteur de mise en marche
 int ae = 0;
 
 void setup() {
-Serial.begin(9600);
 Serial.begin(9600);  //Initialisation Moniteur Serie
 Motor.begin(I2C_ADDRESS); //Localisation du moteur
 pinMode(pir1,INPUT);  //Mode Réception des données
@@ -68,14 +66,19 @@ if (Ethernet.begin(mac) == 0) { //detecter en cas de probleme d'ip (DHCP = IP dy
 void requete(int hauteur) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://thibaultpech.000webhostapp.com/acq2donee.php?DATA="); //url envoyé par le client arduino | viens du vieux tp 2018
+  client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url envoyé par le client arduino | viens du vieux tp 2018
   client.print(hauteur); //var 1
-  client.print("&DATA2=");
-  client.print("pasDeValeur"); //var 2 | add 2nd valeur here
+  client.print("&ventilateur=");
+  client.print("0"); //var 2 | add 2nd valeur here
+  client.print("&humidite=");
+  client.print("99.99"); //var 2 | add 2nd valeur here
+  client.print("&eau=");
+  client.print("999.999"); //var 2 | add 2nd valeur here
   client.println(" HTTP/1.1"); //NE FAIT PAS PARTIE DE L'URL
   client.println();
   Serial.println("**Valeurs envoyées");
   client.stop();
+  delay(10000);
   }
 
 else {
