@@ -47,7 +47,7 @@ background: #dfe4ea;
 border: 1px solid black;
 padding: 10px 20px;
 color: #2f3542;
-outline: none;
+outline: 0;
 margin: 10px 0;
 border-radius: 4px;
 box-shadow: 1px 1px #2f3542;
