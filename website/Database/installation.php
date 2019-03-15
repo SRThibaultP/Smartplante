@@ -6,7 +6,7 @@
 
  $sql= "CREATE TABLE IF NOT EXISTS `id8552472_dbvariables` (";
  $sql .= "`id` int(11) NOT NULL auto_increment,";
- $sql .= "`hauteur` decimal(11,3) NOT NULL,";
+ $sql .= "`hauteur` int(11) NOT NULL,";
  $sql .= "`ventilateur` int(11) NOT NULL,";
  $sql .= "`humidite` decimal(11,3) NOT NULL,";
  $sql .= "`eau` decimal(11,3) NOT NULL,";
