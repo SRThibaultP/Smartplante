@@ -1,3 +1,23 @@
 body{
 background: #7bed9f;
 }
+
+.hauteur{
+  color: #ffa502;
+  background-color: #2f3542;
+}
+
+.ventilateur{
+  color: #3742fa;
+  background-color: #2f3542;
+}
+
+.humidite{
+  color: #ff4757;
+  background-color: #2f3542;
+}
+
+.eau{
+  color: #a4b0be;
+  background-color: #2f3542;
+}
