@@ -4,6 +4,8 @@
 byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //adresse mac shield ethernet
 EthernetClient client;
 
+ae = 5;
+
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
 }
