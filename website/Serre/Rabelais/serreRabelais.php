@@ -1,4 +1,5 @@
 <?php
+$QuantiteEau = 57;
 $sql = "SELECT * FROM id8552472_dbvariables WHERE id = (SELECT MAX(id) FROM id8552472_dbvariables)";
 include($_SERVER['DOCUMENT_ROOT'].'/Database/login.php');
 $db=connexion();
@@ -7,7 +8,8 @@ while($data = mysqli_fetch_assoc($req)){
   $hauteur = $data["hauteur"];
   $ventilateur = $data["ventilateur"];
   $humidite = $data["humidite"];
-  $eau = $data["eau"];
+  $eauBrut = $data["eau"];
+  $eau = ($eauBrut/$QuantiteEau)*100;
 }
 ?>
 
@@ -16,7 +18,7 @@ while($data = mysqli_fetch_assoc($req)){
   <head>
     <meta charset="utf-8">
     <title>SerreRabelais - SmartPlante</title>
-    <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
     <link rel="stylesheet" href="../serre.css">
   </head>
   <body>
@@ -30,6 +32,7 @@ while($data = mysqli_fetch_assoc($req)){
       <?php echo "$humidite"; ?>
     </div>
     <div class="eau">
+      <div class="water" style="height:<?php echo "$eau"; ?>%;"
       <?php echo "$eau"; ?>
     </div>
   </body>
