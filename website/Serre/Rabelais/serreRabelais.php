@@ -16,8 +16,8 @@ while($data = mysqli_fetch_assoc($req)){
   <head>
     <meta charset="utf-8">
     <title>SerreRabelais - SmartPlante</title>
-    <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
-    <link rel="stylesheet" href="../serre.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+    <link rel="stylesheet" href="../serre.css"
   </head>
   <body>
     <div class="hauteur">

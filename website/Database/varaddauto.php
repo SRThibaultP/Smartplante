@@ -1,9 +1,9 @@
 <?php
  include("login.php");
- $hauteur = $_GET['hauteur']; //ben (val num sans virgule)
- $ventilateur = $_GET['ventilateur']; //romain (valeur en 0/1?)
- $humidite = $_GET['humidite']; //flo
- $eau = $_GET['eau']; //flo
+ $hauteur = $_GET['hauteur'];
+ $ventilateur = $_GET['ventilateur'];
+ $humidite = $_GET['humidite'];
+ $eau = $_GET['eau'];
  echo "Data ".$hauteur." et ".$humidite." et ".$ventilateur." et ".$eau."bien acquise sur le serveur ";
   {
     $db=connexion();
