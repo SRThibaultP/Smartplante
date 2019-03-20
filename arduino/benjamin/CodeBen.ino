@@ -14,7 +14,7 @@ long hauteur = 0;
 
 void setup() {
     Serial.begin(9600);  //Initialisation Moniteur Serie
-    Motor.begin(I2C_ADDRESS); //Localisation du moteur
+    //Motor.begin(I2C_ADDRESS); //Localisation du moteur
     pinMode(pir1,INPUT);  //Mode Réception des données
     pinMode(pir2,INPUT);
     pinMode(relay1,OUTPUT);

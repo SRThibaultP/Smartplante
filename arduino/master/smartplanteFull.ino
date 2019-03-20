@@ -1,6 +1,6 @@
 #include <SPI.h>
 #include <Ethernet.h>
-#include <Grove_I2C_Motor_Driver.h>
+ // #include <Grove_I2C_Motor_Driver.h> PLUS BESOIN
 #include <Ultrasonic.h>
 
 #define I2C_ADDRESS 0x0f
@@ -16,7 +16,7 @@ int ae = 0;
 
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
-Motor.begin(I2C_ADDRESS); //Localisation du moteur
+//Motor.begin(I2C_ADDRESS); //Localisation du moteur PLUS BESOIN
 pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
 }
