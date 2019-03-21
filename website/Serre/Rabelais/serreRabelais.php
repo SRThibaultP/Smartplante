@@ -7,7 +7,7 @@ while($data = mysqli_fetch_assoc($req)){
   $hauteur = $data["hauteur"];
   $ventilateur = $data["ventilateur"];
   $humidite = $data["humidite"];
-  $eau = $data["eau"];
+  $temperature = $data["temperature"];
 }
 ?>
 
@@ -29,8 +29,8 @@ while($data = mysqli_fetch_assoc($req)){
     <div class="humidite">
       <?php echo "$humidite"; ?>
     </div>
-    <div class="eau">
-      <?php echo "$eau"; ?>
+    <div class="temperature">
+      <?php echo "$temperature"; ?>
     </div>
   </body>
 </html>
