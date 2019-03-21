@@ -4,12 +4,12 @@
 
 #define I2C_ADDRESS 0x0f
 
-Ultrasonic ultrasonic(8);
+Ultrasonic ultrasonic(9);
  // Initialisation des variables
 int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
-int relay1 = x;
-int relay2 = x;
+int relay1 = 7;
+int relay2 = 8;
 long hauteur = 0;
 
 void setup() {

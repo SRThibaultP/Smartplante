@@ -8,10 +8,12 @@
 byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //shield ethernet
 EthernetClient client;
 
-Ultrasonic ultrasonic(8);
+Ultrasonic ultrasonic(9);
  // Initialisation des variables
 int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
+int relay1 = 7;
+int relay2 = 8;
 int ae = 0;
 
 void setup() {
