@@ -1,6 +1,6 @@
 <?php
  include("login.php");
- if ($_POST['hauteur'] != '' AND $_POST['ventilateur'] != '' AND $_POST['humidité'] != '' AND $_POST['QO'] != '')
+ if ($_POST['hauteur'] != '' AND $_POST['ventilateur'] != '' AND $_POST['humidite'] != '' AND $_POST['temperature'] != '')
   {
     $db=connexion();
 	  $sql = "INSERT INTO id8552472_dbvariables (hauteur,ventilateur,humidité,QO)

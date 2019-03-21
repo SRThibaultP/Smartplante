@@ -72,7 +72,7 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   client.print("0"); //var 2
   client.print("&humidite=");
   client.print("99.99"); //var 3
-  client.print("&eau=");
+  client.print("&temperature=");
   client.print("999.999"); //var 4
   client.println(" HTTP/1.1"); //NOT IN URL
   client.println();
