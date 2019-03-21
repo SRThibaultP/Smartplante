@@ -78,11 +78,11 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url send arduino
   client.print(hauteur); //var 1
   client.print("&ventilateur=");
-  client.print("0"); //var 2
+  client.print("1"); //var 2
   client.print("&humidite=");
   client.print(humidite); //var 3
   client.print("&temperature=");
-  client.print("999.999"); //var 4
+  client.print("9"); //var 4
   client.println(" HTTP/1.1"); //NOT IN URL
   client.println();
   Serial.println("**Valeurs envoyées");
