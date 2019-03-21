@@ -15,7 +15,6 @@ void setup()
     Motor.begin(I2C_ADDRESS);        // Localisation du moteur
      while(CaptFinDeCourse == 1)
      {
-        Serial.begin(9600);
         Motor.speed(MOTOR1, 50);
     }
 }
