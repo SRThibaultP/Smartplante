@@ -1,6 +1,6 @@
 #include <SPI.h>
 #include <Ethernet.h>
-#include <Grove_I2C_Motor_Driver.h>
+ // #include <Grove_I2C_Motor_Driver.h> PLUS BESOIN
 #include <Ultrasonic.h>
 
 #define I2C_ADDRESS 0x0f
@@ -8,10 +8,12 @@
 byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //shield ethernet
 EthernetClient client;
 
-Ultrasonic ultrasonic(8);
+Ultrasonic ultrasonic(9);
  // Initialisation des variables
 int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
+int relay1 = 7;
+int relay2 = 8;
 int ae = 0;
 
 int sensorPin = A1;                     //initialisation variable SensorPin (capteur humidité) sur entree analogique AO
@@ -20,8 +22,7 @@ int vanPin = 8;
 
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
-
-Motor.begin(I2C_ADDRESS); //Localisation du moteur
+//Motor.begin(I2C_ADDRESS); //Localisation du moteur PLUS BESOIN
 pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
 
