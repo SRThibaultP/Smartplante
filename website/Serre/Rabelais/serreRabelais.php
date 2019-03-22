@@ -7,7 +7,7 @@ while($data = mysqli_fetch_assoc($req)){
   $hauteur = $data["hauteur"];
   $ventilateur = $data["ventilateur"];
   $humidite = $data["humidite"];
-  $eau = $data["eau"];
+  $temperature = $data["temperature"];
 }
 ?>
 
@@ -16,10 +16,13 @@ while($data = mysqli_fetch_assoc($req)){
   <head>
     <meta charset="utf-8">
     <title>SerreRabelais - SmartPlante</title>
-    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
-    <link rel="stylesheet" href="../serre.css"
+    <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
+    <link rel="stylesheet" href="../serre.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="../gauge.js"></script>
   </head>
   <body>
+    <div id="chart_div" style="width: 400px; height: 120px;"></div>
     <div class="hauteur">
       <?php echo "$hauteur"; ?>
     </div>
@@ -29,8 +32,8 @@ while($data = mysqli_fetch_assoc($req)){
     <div class="humidite">
       <?php echo "$humidite"; ?>
     </div>
-    <div class="eau">
-      <?php echo "$eau"; ?>
+    <div class="temperature">
+      <?php echo "$temperature"; ?>
     </div>
   </body>
 </html>
