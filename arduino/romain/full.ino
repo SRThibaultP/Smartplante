@@ -17,7 +17,6 @@ void setup()
 {
     Serial.begin(9600);              // Initialisation du moniteur série
     pinMode(ventilateur,OUTPUT);     // Mode envoi de données
-<<<<<<< HEAD
     pinMode(relay1, OUTPUT);
     pinMode(relay2, OUTPUT);
 
@@ -31,12 +30,6 @@ void setup()
         digitalWrite(relay2,HIGH);
 
         valInit =digitalRead(CaptFinDeCourse);
-=======
-    Motor.begin(I2C_ADDRESS);        // Localisation du moteur
-     while(CaptFinDeCourse == 1)
-     {
-        Motor.speed(MOTOR1, 50);
->>>>>>> b89cf8419ac617e2c310bb47dd52f57a71729a0d
     }
     digitalWrite(relay1,LOW);
     digitalWrite(relay2,LOW);
