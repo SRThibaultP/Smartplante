@@ -33,9 +33,10 @@ void loop() {
     digitalWrite(relay2, LOW);
     if(ValMarche == 0 && ValStop == 0){
         Serial.println("Mise en marche du moteur");
-      //  Motor.speed(MOTOR1, 50); //Mise en marche du moteur
+
       digitalWrite(relay1, HIGH);
       digitalWrite(relay2, LOW);
+
     while(ValStop == 0){  //Tant que capteur 1 detecte une présence on continue la montée du moteur
         digitalWrite(relay1, HIGH);
         digitalWrite(relay2, LOW);
