@@ -16,17 +16,31 @@ int relay1 = 7;
 int relay2 = 8;
 int ae = 0;
 
+
+/* VARIABLES UTILES À ROMAIN */
+const int B = 4275;                  // B valeur du
+const int R0 = 100000;               // R0 = 100k
+const int pinTempSensor = A0;        // Le thermomètre se connecte à A0
+const int CaptFinDeCourse = 6;
+int ventilateur = 4;          // Relais connecté à la Pin 4
+int ValInit = 0;
+
 int sensorPin = A1;                     //initialisation variable SensorPin (capteur humidité) sur entree analogique AO
 int sensorValue = 0;                    //initialisation variable du capteur sur O
 int vanPin = 8;
 
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
-//Motor.begin(I2C_ADDRESS); //Localisation du moteur PLUS BESOIN
+
 pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
+pinMode(CaptFinDeCourse, INPUT);
 
+pinMode(relay1, OUTPUT);
+pinMode(relay2,OUTPUT);
 pinMode(vanPin, OUTPUT);
+
+Initialisation();
 }
 
 void loop(){
@@ -34,6 +48,35 @@ connexion();
 ae = ProgMoteur(pir2, pir1);
 humidite();
 requete(ae,vanPin);
+}
+
+void Initialisation(){
+  digitalWrite(relay1, LOW);
+  digitalWrite(relay2, LOW);
+
+  valInit = digitalRead(CaptFinDeCourse);
+
+  while (valInit == 0){
+    digitalWrite(relay1, LOW);
+    digitalWrite(relay2,HIGH);
+
+    valInit = digitalRead(CaptFinDeCourse);
+  }
+
+  digitalWrite(relay1, LOW);
+  digitalWrite(relay2, LOW);
+
+  valStop = digitalRead(pir1);
+
+  while(valStop != 0){
+    digitalWrite(relay1, HIGH);
+    digitalWrite(relay2, LOW);
+
+    valStop = digitalRead(pir1);
+  }
+
+  digitalWrite(relay1,LOW);
+  digitalWrite(relay2,LOW);
 }
 
 int ProgMoteur(int CaptMarche, int CaptStop) {

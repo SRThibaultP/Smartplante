@@ -37,7 +37,7 @@ void setup()
     valStop = digitalRead(pir1);
     while(valStop != 0){
       digitalWrite(relay1,HIGH);
-      digitalWrite(relay2, HIGH);
+      digitalWrite(relay2, LOW);
 
       valStop = digitalRead(pir1);
     }
