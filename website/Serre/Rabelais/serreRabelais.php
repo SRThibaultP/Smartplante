@@ -19,10 +19,8 @@ while($data = mysqli_fetch_assoc($req)){
     <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
     <link rel="stylesheet" href="../serre.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="../gauge.js"></script>
   </head>
   <body>
-    <div id="chart_div" style="width: 400px; height: 120px;"></div>
     <div class="hauteur">
       <?php echo "$hauteur"; ?>
     </div>
@@ -31,6 +29,7 @@ while($data = mysqli_fetch_assoc($req)){
     </div>
     <div class="humidite">
       <?php echo "$humidite"; ?>
+      <iframe src="/gaugeHumidite.php"
     </div>
     <div class="temperature">
       <?php echo "$temperature"; ?>
