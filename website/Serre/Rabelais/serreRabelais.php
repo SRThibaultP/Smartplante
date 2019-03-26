@@ -9,6 +9,12 @@ while($data = mysqli_fetch_assoc($req)){
   $humidite = $data["humidite"];
   $temperature = $data["temperature"];
 }
+if ($humidite < 732) {
+  $humiditeTXT = "TERRE SEC";
+}
+else {
+  $humiditeTXT = "TERRE HUMIDE";
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +24,6 @@ while($data = mysqli_fetch_assoc($req)){
     <title>SerreRabelais - SmartPlante</title>
     <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
     <link rel="stylesheet" href="../serre.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
     <div class="hauteur">
@@ -28,8 +33,8 @@ while($data = mysqli_fetch_assoc($req)){
       <?php echo "$ventilateur"; ?>
     </div>
     <div class="humidite">
-      <?php echo "$humidite"; ?>
-      <iframe src="/gaugeHumidite.php"
+      <h1> <?php echo "$humiditeTXT"; ?> </h1>
+
     </div>
     <div class="temperature">
       <?php echo "$temperature"; ?>
