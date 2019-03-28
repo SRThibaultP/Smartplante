@@ -1,6 +1,5 @@
 #include <SPI.h>
 #include <Ethernet.h>
- // #include <Grove_I2C_Motor_Driver.h> PLUS BESOIN
 #include <Ultrasonic.h>
 
 #define I2C_ADDRESS 0x0f
@@ -9,10 +8,10 @@ byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //shield ethernet
 EthernetClient client;
 
 Ultrasonic ultrasonic(9);
- // Initialisation des variables
+ /*VARIABLES UTILES À BENJAMIN */
 int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
-int relay1 = 7;
+int relay1 = 7; //Interrupteur commande moteur
 int relay2 = 8;
 int ae = 0;
 
@@ -36,20 +35,21 @@ pinMode(pir1,INPUT);  //Mode Réception des données
 pinMode(pir2,INPUT);
 pinMode(CaptFinDeCourse, INPUT);
 
-pinMode(relay1, OUTPUT);
+pinMode(relay1, OUTPUT); //Mode Sortie d'Arduino
 pinMode(relay2,OUTPUT);
 pinMode(vanPin, OUTPUT);
 
-Initialisation();
+Initialisation(); //Appel du sous-programme d'initialisation
 }
 
 void loop(){
-connexion();
-ae = ProgMoteur(pir2, pir1);
-humidite();
-requete(ae,vanPin);
+connexion(); //Appel du sous-programme de connexion
+ae = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
+humidite(); //Appel du sous-programme gestion motopompe
+requete(ae,vanPin); //Appel du sous-programme envoie de données sur le site
 }
 
+  /*SOUS PROGRAMME INITIALISATION*/
 void Initialisation(){
   digitalWrite(relay1, LOW);
   digitalWrite(relay2, LOW);
@@ -78,7 +78,7 @@ void Initialisation(){
   digitalWrite(relay1,LOW);
   digitalWrite(relay2,LOW);
 }
-
+  /*SOUS PROGRAMME GESTION MOTEUR/LAMPE*/
 int ProgMoteur(int CaptMarche, int CaptStop) {
   int ValMarche = digitalRead(CaptMarche);
   int ValStop = digitalRead(CaptStop);
@@ -117,7 +117,7 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   delay(1000);
   return(Distance);
 }
-
+  /*SOUS PROGRAMME CONNEXION*/
 void connexion () {
 if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
     Serial.println("Failed to configure Ethernet using DHCP");
@@ -126,7 +126,7 @@ if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
     Serial.println("connecting...");
     }
   }
-
+  /*SOUS PROGRAMME ENVOIs DE DONNEES*/
 void requete(int hauteur, int humidite) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
@@ -149,7 +149,7 @@ else {
   Serial.println("**Connexion impossible");
   }
 }
-
+  /*SOUS PROGRAMME GESTION MOTOPOMPE*/
 void humidite (){
 sensorValue = analogRead(sensorPin); //lecture de la valeur analogique par le capteur et stockage dans variable sensorValue
 Serial.print("humidite = " );        //écriture sur le moniteur série de humidité
