@@ -11,17 +11,17 @@ while($data = mysqli_fetch_assoc($req)){
 }
 
 if ($humidite < 732) {
-  $humiditeTXT = "TERRE SEC";
+  $humiditeTXT = "La terre est sec";
 }
 else {
-  $humiditeTXT = "TERRE HUMIDE";
+  $humiditeTXT = "La terre est humide";
 }
 
 if ($ventilateur == 1) {
-  $ventilateurTXT = "VENTILATEUR ON";
+  $ventilateurTXT = "Le ventilateur est en marche";
 }
 else {
-  $ventilateurTXT = "VENTILATEUR OFF";
+  $ventilateurTXT = "Le ventilateur est à l'arrêt";
 }
 
 $humidite = (int)(($humidite / 730) * 100);
@@ -37,19 +37,30 @@ echo '<!DOCTYPE html>
     <link rel="stylesheet" href="../serre.css">
   </head>
   <body>
-    <div class="hauteur">
-      <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Hauteur&cot=150&min=0&max=100&val='.$hauteur.'"></iframe>
+    <div class="alerte ventilateurTXT">
+      <span class="closebtn">&times;</span>
+      <strong>Ventilateur: </strong> '.$ventilateurTXT.'
     </div>
-    <div class="ventilateur">
-      <h1>'.$ventilateurTXT.'</h1>
-    </div>
-    <div class="humidite">
-      <h1>'.$humiditeTXT.'</h1>
-      <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Humidite&cot=150&min=0&max=100&val='.$humidite.'"></iframe>
+    <div class="alerte humiditeTXT">
+      <span class="closebtn">&times;</span>
+      <strong>Terre: </strong> '.$humiditeTXT.'
     </div>
     <div class="temperature">
       <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Temperature&cot=150&min=0&max=100&val='.$temperature.'"></iframe>
     </div>
+    <div id="serre">
+      <div class="hauteur">
+        <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Hauteur&cot=150&min=0&max=100&val='.$hauteur.'"></iframe>
+      </div>
+      <div class="humidite">
+        <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Humidite&cot=150&min=0&max=100&val='.$humidite.'"></iframe>
+      </div>
+    </div>
   </body>
-</html>'
+  <footer>
+    <script src="../alerte.js"></script>
+  </footer>
+</html>
+
+'
 ?>
