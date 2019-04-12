@@ -65,7 +65,7 @@ void Initialisation(){
   digitalWrite(relay1, LOW);
   digitalWrite(relay2, LOW);
 
-  ValStop = digitalRead(pir1);
+  int ValStop = digitalRead(pir1);
 
   while(ValStop != 0){
     digitalWrite(relay1, HIGH);
