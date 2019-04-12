@@ -1,6 +1,5 @@
 $.get("hauteur.php",function(data){
   hauteurValue = data;
-  alert("Data: " + data)
 });
 
 google.charts.load('current', {'packages':['gauge']});
