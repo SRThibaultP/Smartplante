@@ -4,7 +4,7 @@
 const int B = 4275;                  // B valeur du
 const int R0 = 100000;               // R0 = 100k
 const int pinTempSensor = A0;        // Le thermomètre se connecte à A0
-const int CaptFinDeCourse = 6;
+int CaptFinDeCourse = 6;
 int pir1 = 3;
 int pir2 = 2;
 int relay1 = 7;

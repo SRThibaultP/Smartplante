@@ -2,7 +2,7 @@
 #include <Ethernet.h>
 #include <Ultrasonic.h>
 
-#define I2C_ADDRESS 0x0f
+//#define I2C_ADDRESS 0x0f
 
 byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //shield ethernet
 EthernetClient client;
@@ -23,7 +23,6 @@ const int pinTempSensor = A0;        // Le thermomètre se connecte à A0
 const int CaptFinDeCourse = 6;
 int ventilateur = 4;          // Relais connecté à la Pin 4
 int ValInit = 0;
-
 int sensorPin = A1;                     //initialisation variable SensorPin (capteur humidité) sur entree analogique AO
 int sensorValue = 0;                    //initialisation variable du capteur sur O
 int vanPin = 8;
@@ -54,25 +53,25 @@ void Initialisation(){
   digitalWrite(relay1, LOW);
   digitalWrite(relay2, LOW);
 
-  valInit = digitalRead(CaptFinDeCourse);
+  ValInit = digitalRead(CaptFinDeCourse);
 
-  while (valInit == 0){
+  while (ValInit == 0){
     digitalWrite(relay1, LOW);
     digitalWrite(relay2,HIGH);
 
-    valInit = digitalRead(CaptFinDeCourse);
+    ValInit = digitalRead(CaptFinDeCourse);
   }
 
   digitalWrite(relay1, LOW);
   digitalWrite(relay2, LOW);
 
-  valStop = digitalRead(pir1);
+  ValStop = digitalRead(pir1);
 
-  while(valStop != 0){
+  while(ValStop != 0){
     digitalWrite(relay1, HIGH);
     digitalWrite(relay2, LOW);
 
-    valStop = digitalRead(pir1);
+    ValStop = digitalRead(pir1);
   }
 
   digitalWrite(relay1,LOW);
