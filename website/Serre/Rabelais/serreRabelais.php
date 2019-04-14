@@ -27,13 +27,12 @@ else {
 $humidite = (int)(($humidite / 730) * 100);
 
 
-
 echo '<!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>SerreRabelais - SmartPlante</title>
-    <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
+    <link rel="icon" href="/Images/favicon-32x32.png">
     <link rel="stylesheet" href="../serre.css">
   </head>
   <body>
@@ -49,18 +48,12 @@ echo '<!DOCTYPE html>
       <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Temperature&cot=150&min=0&max=100&val='.$temperature.'"></iframe>
     </div>
     <div id="serre">
-      <div class="hauteur">
-        <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Hauteur&cot=150&min=0&max=100&val='.$hauteur.'"></iframe>
-      </div>
-      <div class="humidite">
-        <iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Humidite&cot=150&min=0&max=100&val='.$humidite.'"></iframe>
-      </div>
+      <div class="hauteur"><iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Hauteur&cot=150&min=0&max=100&val='.$hauteur.'"></iframe></div>
+      <div class="humidite"><iframe src="https://sitetsti2dsin.000webhostapp.com/gauge.php?nam=Humidite&cot=150&min=0&max=100&val='.$humidite.'"></iframe></div>
     </div>
   </body>
   <footer>
     <script src="../alerte.js"></script>
   </footer>
-</html>
-
-'
+</html>'
 ?>
