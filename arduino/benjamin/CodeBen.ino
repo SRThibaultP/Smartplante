@@ -1,8 +1,8 @@
-#include <Arduino.h>
+//#include <Arduino.h>
 //#include "Grove_I2C_Motor_Driver.h"
 #include "Ultrasonic.h"
 
-#define I2C_ADDRESS 0x0f
+//#define I2C_ADDRESS 0x0f
 
 Ultrasonic ultrasonic(9);
  // Initialisation des variables
@@ -29,12 +29,17 @@ void loop() {
     int ValMarche = digitalRead(CaptMarche);
     int ValStop = digitalRead(CaptStop);
 
+    digitalWrite(relay1, LOW);
+    digitalWrite(relay2, LOW);
     if(ValMarche == 0 && ValStop == 0){
         Serial.println("Mise en marche du moteur");
-      //  Motor.speed(MOTOR1, 50); //Mise en marche du moteur
+
       digitalWrite(relay1, HIGH);
+      digitalWrite(relay2, LOW);
+
     while(ValStop == 0){  //Tant que capteur 1 detecte une présence on continue la montée du moteur
         digitalWrite(relay1, HIGH);
+        digitalWrite(relay2, LOW);
         Serial.println("Moteur stade Marche");
         ValStop = digitalRead(CaptStop);
       }
@@ -42,6 +47,7 @@ void loop() {
 
     if(ValStop == 1){  //Si capteur 1 ne détecte rien
       digitalWrite(relay1, LOW);
+      digitalWrite(relay2, LOW);
       Serial.println("Moteur stade Arret");
     }
 

@@ -1,22 +1,50 @@
 #include <math.h>
-#include "Grove_I2C_Motor_Driver.h"
 
-#define I2C_ADDRESS 0x0f
 
 const int B = 4275;                  // B valeur du
 const int R0 = 100000;               // R0 = 100k
 const int pinTempSensor = A0;        // Le thermomètre se connecte à A0
-const int CaptFinDeCourse = 6;
+int CaptFinDeCourse = 6;
+int pir1 = 3;
+int pir2 = 2;
+int relay1 = 7;
+int relay2 = 8;
 int ventilateur = 4;          // Relais connecté à la Pin 4
+int valInit = 0;
+int valStop = 1;
+
 void setup()
 {
     Serial.begin(9600);              // Initialisation du moniteur série
     pinMode(ventilateur,OUTPUT);     // Mode envoi de données
-    Motor.begin(I2C_ADDRESS);        // Localisation du moteur
-     while(CaptFinDeCourse == 1)
-     {
-        Motor.speed(MOTOR1, 50);
+    pinMode(relay1, OUTPUT);
+    pinMode(relay2, OUTPUT);
+
+    pinMode(pir1, INPUT);
+    pinMode(pir2,INPUT);
+    pinMode(CaptFinDeCourse, INPUT);
+
+    valInit = digitalRead(CaptFinDeCourse);
+    while (valInit == 0) {
+        digitalWrite(relay1, LOW);
+        digitalWrite(relay2,HIGH);
+
+        valInit =digitalRead(CaptFinDeCourse);
     }
+    digitalWrite(relay1,LOW);
+    digitalWrite(relay2,LOW);
+
+    valStop = digitalRead(pir1);
+    while(valStop != 0){
+      digitalWrite(relay1,HIGH);
+      digitalWrite(relay2, LOW);
+
+      valStop = digitalRead(pir1);
+    }
+    digitalWrite(relay1,LOW);
+    digitalWrite(relay2,LOW);
+
+
 }
 
 
