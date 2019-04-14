@@ -27,13 +27,12 @@ else {
 $humidite = (int)(($humidite / 730) * 100);
 
 
-
 echo '<!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>SerreRabelais - SmartPlante</title>
-    <link rel="icon" href="/Images/favicon-32x32.png" type="image/png">
+    <link rel="icon" href="/Images/favicon-32x32.png">
     <link rel="stylesheet" href="../serre.css">
   </head>
   <body>
@@ -56,8 +55,5 @@ echo '<!DOCTYPE html>
   <footer>
     <script src="../alerte.js"></script>
   </footer>
-</html>
-
-
-'
+</html>'
 ?>
