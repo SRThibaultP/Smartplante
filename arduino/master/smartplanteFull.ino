@@ -13,7 +13,7 @@ int pir1 = 3; //Capteur d'arret
 int pir2 = 2; //Capteur de mise en marche
 int relay1 = 7; //Interrupteur commande moteur
 int relay2 = 8;
-int ae = 0;
+int pirs, fakeTemp, fakeVenti;
 
 
 /* VARIABLES UTILES À ROMAIN */
@@ -26,6 +26,7 @@ int ValInit = 0;
 int sensorPin = A1;                     //initialisation variable SensorPin (capteur humidité) sur entree analogique AO
 int sensorValue = 0;                    //initialisation variable du capteur sur O
 int vanPin = 8;
+
 
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
@@ -41,12 +42,14 @@ pinMode(vanPin, OUTPUT);
 Initialisation(); //Appel du sous-programme d'initialisation
 }
 
+
 void loop(){
 connexion(); //Appel du sous-programme de connexion
-ae = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
+pirs = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
 humidite(); //Appel du sous-programme gestion motopompe
-requete(ae,vanPin); //Appel du sous-programme envoie de données sur le site
+requete(pirs, fakeVenti, vanPin, fakeTemp); //Appel du sous-programme envoie de données sur le site
 }
+
 
   /*SOUS PROGRAMME INITIALISATION*/
 void Initialisation(){
@@ -77,6 +80,8 @@ void Initialisation(){
   digitalWrite(relay1,LOW);
   digitalWrite(relay2,LOW);
 }
+
+
   /*SOUS PROGRAMME GESTION MOTEUR/LAMPE*/
 int ProgMoteur(int CaptMarche, int CaptStop) {
   int ValMarche = digitalRead(CaptMarche);
@@ -116,6 +121,8 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   delay(1000);
   return(Distance);
 }
+
+
   /*SOUS PROGRAMME CONNEXION*/
 void connexion () {
 if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
@@ -125,19 +132,21 @@ if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
     Serial.println("connecting...");
     }
   }
-  /*SOUS PROGRAMME ENVOIs DE DONNEES*/
-void requete(int hauteur, int humidite) {
+
+
+  /*SOUS PROGRAMME ENVOI DE DONNEES*/
+void requete(int hauteur, int ventilateur, int humidite, int temperature) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url send arduino
-  client.print(hauteur); //var 1
+  client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url send arduino client
+  client.print(hauteur);
   client.print("&ventilateur=");
-  client.print("1"); //var 2
+  client.print(ventilateur);
   client.print("&humidite=");
-  client.print(humidite); //var 3
+  client.print(humidite);
   client.print("&temperature=");
-  client.print("9"); //var 4
-  client.println(" HTTP/1.1"); //NOT IN URL
+  client.print(temperature);
+  client.println(" HTTP/1.1"); //header http
   client.println();
   Serial.println("**Valeurs envoyées");
   client.stop();
@@ -148,6 +157,8 @@ else {
   Serial.println("**Connexion impossible");
   }
 }
+
+
   /*SOUS PROGRAMME GESTION MOTOPOMPE*/
 void humidite (){
 sensorValue = analogRead(sensorPin); //lecture de la valeur analogique par le capteur et stockage dans variable sensorValue
