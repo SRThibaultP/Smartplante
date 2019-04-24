@@ -42,7 +42,7 @@ pinMode(relay2,OUTPUT);
 pinMode(vanPin, OUTPUT);
 
 Serial.println("Avant l'initialisation");
-Initialisation(); //Appel du sous-programme d'initialisation
+//Initialisation(); //Appel du sous-programme d'initialisation
 Serial.println("Après l'initialisation");
 }
 
