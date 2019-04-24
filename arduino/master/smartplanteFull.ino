@@ -1,6 +1,7 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <Ultrasonic.h>
+#include <math.h>
 
 //#define I2C_ADDRESS 0x0f
 
@@ -26,6 +27,7 @@ int ValInit = 0;
 int sensorPin = A1;                  //initialisation variable SensorPin (capteur humidité) sur entree analogique AO
 int sensorValue = 0;                 //initialisation variable du capteur sur O
 int vanPin = 8;
+float temp = 0;
 
 
 void setup() {
@@ -49,6 +51,7 @@ void loop(){
 //connexion(); //Appel du sous-programme de connexion
 pirs = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
 humidite(); //Appel du sous-programme gestion motopompe
+temp = Chaleur();
 //requete(pirs, fakeVenti, vanPin, fakeTemp); //Appel du sous-programme envoie de données sur le site
 Serial.println("Après la boucle");
 }
@@ -124,6 +127,27 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
   delay(1000);
   return(Distance);
 }
+
+float Chaleur(){
+ int a = analogRead(pinTempSensor);
+ float R = 1023.0/a-1.0;
+ R = R0*R;
+ float temperature = 1.0/(log(R/R0)/B+1/298.15)-273.15;    // Convertis en température
+ Serial.print("temperature = ");                           // Affiche "temperature ="
+ Serial.println(a);                                        // Affiche la température
+ if (temperature >= 30){                                   // Si température > 30°C
+
+   digitalWrite(ventilateur,HIGH);                         // Active le ventilateur
+   Serial.println("Trop chaud");                           // Affiche "Trop chaud"
+ }
+
+ if (temperature < 25) {                                   // Si température < 25°C
+
+   digitalWrite(ventilateur,LOW);                          // Désactive le ventilateur
+ }
+return temperature;
+}
+
 
 /*
   SOUS PROGRAMME CONNEXION
