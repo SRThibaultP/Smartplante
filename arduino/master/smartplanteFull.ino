@@ -26,7 +26,7 @@ int ventilateur = 4;                 // Relais connecté à la Pin 4
 int ValInit = 0;
 int sensorPin = A1;                  //initialisation variable SensorPin (capteur humidité) sur entree analogique AO
 int sensorValue = 0;                 //initialisation variable du capteur sur O
-int vanPin = 8;
+int vanPin = 5;
 float temp = 0;
 
 
