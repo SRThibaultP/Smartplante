@@ -42,17 +42,17 @@ pinMode(relay2,OUTPUT);
 pinMode(vanPin, OUTPUT);
 
 Serial.println("Avant l'initialisation");
-//Initialisation(); //Appel du sous-programme d'initialisation
+Initialisation(); //Appel du sous-programme d'initialisation
 Serial.println("Après l'initialisation");
 }
 
 
 void loop(){
-//connexion(); //Appel du sous-programme de connexion
+connexion(); //Appel du sous-programme de connexion
 pirs = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
 humidite(); //Appel du sous-programme gestion motopompe
 temp = Chaleur();
-//requete(pirs, fakeVenti, vanPin, fakeTemp); //Appel du sous-programme envoie de données sur le site
+requete(pirs, fakeVenti, vanPin, fakeTemp); //Appel du sous-programme envoie de données sur le site
 Serial.println("Après la boucle");
 }
 
@@ -149,8 +149,8 @@ return temperature;
 }
 
 
-/*
-  SOUS PROGRAMME CONNEXION
+
+  //SOUS PROGRAMME CONNEXION
 void connexion () {
 if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
     Serial.println("Failed to configure Ethernet using DHCP");
@@ -161,7 +161,7 @@ if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
   }
 
 
-  SOUS PROGRAMME ENVOI DE DONNEES
+  //SOUS PROGRAMME ENVOI DE DONNEES
 void requete(int hauteur, int ventilateur, int humidite, int temperature) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
@@ -184,7 +184,7 @@ else {
   Serial.println("**Connexion impossible");
   }
 }
-/*
+
 
   /*SOUS PROGRAMME GESTION MOTOPOMPE*/
 void humidite (){
