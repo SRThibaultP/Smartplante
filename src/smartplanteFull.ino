@@ -65,8 +65,8 @@ void Initialisation(){
   ValInit = digitalRead(CaptFinDeCourse);
 
   while (ValInit == 0){
-    digitalWrite(relay1, LOW);
-    digitalWrite(relay2,HIGH);
+    digitalWrite(relay1, HIGH);
+    digitalWrite(relay2,LOW);
 
     ValInit = digitalRead(CaptFinDeCourse);
   }
@@ -77,8 +77,8 @@ void Initialisation(){
   int ValStop = digitalRead(pir1);
 
   while(ValStop != 0){
-    digitalWrite(relay1, HIGH);
-    digitalWrite(relay2, LOW);
+    digitalWrite(relay1, LOW);
+    digitalWrite(relay2, HIGH);
 
     ValStop = digitalRead(pir1);
   }
