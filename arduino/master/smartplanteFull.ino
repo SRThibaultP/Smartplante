@@ -14,7 +14,7 @@ int pir1 = 3;   //Capteur d'arret
 int pir2 = 2;   //Capteur de mise en marche
 int relay1 = 7; //Interrupteur commande moteur
 int relay2 = 8;
-int pirs, fakeTemp, fakeVenti;
+int pirs, fakeVenti;
 
 
 /* VARIABLES UTILES À ROMAIN */
@@ -52,7 +52,7 @@ connexion(); //Appel du sous-programme de connexion
 pirs = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
 humidite(); //Appel du sous-programme gestion motopompe
 temp = Chaleur();
-requete(pirs, fakeVenti, vanPin, fakeTemp); //Appel du sous-programme envoie de données sur le site
+requete(pirs, fakeVenti, vanPin, temp); //Appel du sous-programme envoie de données sur le site
 Serial.println("Après la boucle");
 }
 
