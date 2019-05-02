@@ -14,7 +14,7 @@ int pir1 = 3;   //Capteur d'arret
 int pir2 = 2;   //Capteur de mise en marche
 int relay1 = 7; //Interrupteur commande moteur
 int relay2 = 8;
-int pirs, fakeTemp, fakeVenti;
+int pirs, ventilateurEtat;
 
 
 /* VARIABLES UTILES À ROMAIN */
@@ -52,7 +52,7 @@ connexion(); //Appel du sous-programme de connexion
 pirs = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
 humidite(); //Appel du sous-programme gestion motopompe
 temp = Chaleur();
-requete(pirs, fakeVenti, vanPin, fakeTemp); //Appel du sous-programme envoie de données sur le site
+requete(pirs, ventilateurEtat, vanPin, temp); //Appel du sous-programme envoie de données sur le site
 Serial.println("Après la boucle");
 }
 
@@ -138,17 +138,36 @@ float Chaleur(){
  if (temperature >= 30){                                   // Si température > 30°C
 
    digitalWrite(ventilateur,HIGH);                         // Active le ventilateur
+   ventilateurEtat = 1;
    Serial.println("Trop chaud");                           // Affiche "Trop chaud"
  }
 
  if (temperature < 25) {                                   // Si température < 25°C
 
    digitalWrite(ventilateur,LOW);                          // Désactive le ventilateur
+   ventilateurEtat = 0;
  }
 return temperature;
 }
 
 
+  /*SOUS PROGRAMME GESTION MOTOPOMPE*/
+void humidite (){
+sensorValue = analogRead(sensorPin); //lecture de la valeur analogique par le capteur et stockage dans variable sensorValue
+Serial.print("humidite = " );        //écriture sur le moniteur série de humidité
+Serial.println(sensorValue);         //écriture sur le moniteur série de la valeur numerique de SensorValue
+delay(1000);                         //attente durant 1 Seconde
+
+if (sensorValue<732) {               // Si la valeur numérique est inférieur à 732
+  digitalWrite(vanPin,HIGH);         // ouvre la vanne (commande le relais qui met en marche la pompe)
+  delay(1000);                       // pause 1 seconde
+  }
+
+if (sensorValue>732) {               // Si la valeur numérique est supérieur à 732
+  digitalWrite(vanPin,LOW);          // ferme la vanne (commande le relais qui met en marche la pompe)
+  delay(1000);                       // pause 1 seconde
+  }
+}
 
   //SOUS PROGRAMME CONNEXION
 void connexion () {
@@ -182,24 +201,5 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
 
 else {
   Serial.println("**Connexion impossible");
-  }
-}
-
-
-  /*SOUS PROGRAMME GESTION MOTOPOMPE*/
-void humidite (){
-sensorValue = analogRead(sensorPin); //lecture de la valeur analogique par le capteur et stockage dans variable sensorValue
-Serial.print("humidite = " );        //écriture sur le moniteur série de humidité
-Serial.println(sensorValue);         //écriture sur le moniteur série de la valeur numerique de SensorValue
-delay(1000);                         //attente durant 1 Seconde
-
-if (sensorValue<732) {               // Si la valeur numérique est inférieur à 732
-  digitalWrite(vanPin,HIGH);         // ouvre la vanne (commande le relais qui met en marche la pompe)
-  delay(1000);                       // pause 1 seconde
-  }
-
-if (sensorValue>732) {               // Si la valeur numérique est supérieur à 732
-  digitalWrite(vanPin,LOW);          // ferme la vanne (commande le relais qui met en marche la pompe)
-  delay(1000);                       // pause 1 seconde
   }
 }
