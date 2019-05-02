@@ -26,37 +26,37 @@ void loop() {
     hauteur = ProgMoteur(pir2, pir1);
 }
     int ProgMoteur(int CaptMarche, int CaptStop){
-    int ValMarche = digitalRead(CaptMarche);
-    int ValStop = digitalRead(CaptStop);
+      int ValMarche = digitalRead(CaptMarche);
+      int ValStop = digitalRead(CaptStop);
 
-    digitalWrite(relay1, LOW);
-    digitalWrite(relay2, LOW);
-    if(ValMarche == 0 && ValStop == 0){
-        Serial.println("Mise en marche du moteur");
-
-      digitalWrite(relay1, HIGH);
-      digitalWrite(relay2, LOW);
-
-    while(ValStop == 0){  //Tant que capteur 1 detecte une présence on continue la montée du moteur
-        digitalWrite(relay1, HIGH);
-        digitalWrite(relay2, LOW);
-        Serial.println("Moteur stade Marche");
-        ValStop = digitalRead(CaptStop);
-      }
-    }
-
-    if(ValStop == 1){  //Si capteur 1 ne détecte rien
       digitalWrite(relay1, LOW);
       digitalWrite(relay2, LOW);
-      Serial.println("Moteur stade Arret");
-    }
+      if(ValMarche == 0 && ValStop == 0){
+          Serial.println("Mise en marche du moteur");
 
-    Serial.println("La distance capteur obstacle est de  : ");
-    long Distance = ultrasonic.MeasureInCentimeters(); // Envoie de la distance en centimétre entre le capteur Ultrason et le Sol
-    Serial.print(Distance);
-    Serial.println(" cm");
+          digitalWrite(relay1, HIGH);
+          digitalWrite(relay2, LOW);
 
-    delay(1000);
+          while(ValStop == 0){  //Tant que capteur 1 detecte une présence on continue la montée du moteur
+            digitalWrite(relay1, HIGH);
+            digitalWrite(relay2, LOW);
+            Serial.println("Moteur stade Marche");
+            ValStop = digitalRead(CaptStop);
+          }
+        }
 
-    return(Distance);
-}
+        if(ValStop == 1){  //Si capteur 1 ne détecte rien
+          digitalWrite(relay1, LOW);
+          digitalWrite(relay2, LOW);
+          Serial.println("Moteur stade Arret");
+        }
+
+        Serial.println("La distance capteur obstacle est de  : ");
+        long Distance = ultrasonic.MeasureInCentimeters(); // Envoie de la distance en centimétre entre le capteur Ultrason et le Sol
+        Serial.print(Distance);
+        Serial.println(" cm");
+
+        delay(1000);
+
+        return(Distance);
+      }
