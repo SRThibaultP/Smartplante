@@ -1,6 +1,5 @@
 #include <math.h>
 
-
 const int B = 4275;                  // B valeur du
 const int R0 = 100000;               // R0 = 100k
 const int pinTempSensor = A0;        // Le thermomètre se connecte à A0
@@ -45,9 +44,7 @@ void setup()
     digitalWrite(relay1,LOW);
     digitalWrite(relay2,LOW);
 
-
 }
-
 
 void loop()
 {
