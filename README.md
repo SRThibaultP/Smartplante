@@ -17,5 +17,5 @@ Le code fut développé par quatre élèves du [Lycée François Rabelais](https
  - TORCHEUX Romain
 
 ## Remerciements
-Merci à notre professeur Mr. ANTHONY pour l'aide fourni lors du développement du projet Smartplante.
+Merci à notre professeur M. ANTHONY pour l'aide fourni lors du développement du projet Smartplante.
 Merci également au [Lycée François Rabelais](https://rabelais.paysdelaloire.e-lyco.fr/) pour nous avoir fourni le matériel nécessaire pour le développement du projet.
