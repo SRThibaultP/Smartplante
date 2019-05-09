@@ -11,7 +11,7 @@ while($data = mysqli_fetch_assoc($req)){
 }
 
 if ($humidite < 732) {
-  $humiditeTXT = "La terre est sec";
+  $humiditeTXT = "La terre est sèche";
 }
 else {
   $humiditeTXT = "La terre est humide";
