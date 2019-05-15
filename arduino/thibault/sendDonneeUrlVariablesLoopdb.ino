@@ -4,7 +4,7 @@
 byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //adresse mac shield ethernet
 EthernetClient client;
 
-ae = 5;
+ae = 5; //fake var
 
 void setup() {
 Serial.begin(9600);  //Initialisation Moniteur Serie
@@ -30,12 +30,12 @@ if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url send arduino
   client.print(hauteur); //var 1
   client.print("&ventilateur=");
-  client.print("0"); //var 2
+  client.print("0"); //var 2 non déclaré pour le moment
   client.print("&humidite=");
-  client.print("99.99"); //var 3
+  client.print("99.99"); //var 3 non déclaré pour le moment
   client.print("&temperature=");
-  client.print("999.999"); //var 4
-  client.println(" HTTP/1.1"); //NOT IN URL
+  client.print("999.999"); //var 4 non déclaré pour le moment
+  client.println(" HTTP/1.1"); //Header (pas ds l'url)
   client.println();
   Serial.println("**Valeurs envoyées");
   client.stop();

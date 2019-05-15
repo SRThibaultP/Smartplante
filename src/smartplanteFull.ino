@@ -1,12 +1,12 @@
 #include <SPI.h>
-#include <Ethernet.h>
+#include <Ethernet.h> //Appel de la librairie internet
 #include <Ultrasonic.h>
 #include <math.h>
 
 //#define I2C_ADDRESS 0x0f
 
-byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //shield ethernet
-EthernetClient client;
+byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0xCD, 0xE9}; //Adresse MAC shield ethernet
+EthernetClient client; //Utilisation de l'Arduino en mode Client
 
 Ultrasonic ultrasonic(9);
  /*VARIABLES UTILES À BENJAMIN */
@@ -184,15 +184,16 @@ if (Ethernet.begin(mac) == 0) { //detecter pb d'ip (DHCP = IP dynamique)
 void requete(int hauteur, int ventilateur, int humidite, int temperature) {
 if (client.connect("proxy-eple.in.ac-nantes.fr",3128)) { //proxy lycée
   Serial.println("*Connectée");
-  client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur="); //url send arduino client
-  client.print(hauteur);
+  client.print("GET http://projetsmartplante.000webhostapp.com/Database/varaddauto.php?hauteur=");
+  //Ligne du dessus : URL envoyé depuis le client Arduino vers le code PHP
+  client.print(hauteur); //Variable 1
   client.print("&ventilateur=");
-  client.print(ventilateur);
+  client.print(ventilateur); //Variable 2
   client.print("&humidite=");
-  client.print(humidite);
+  client.print(humidite); //Variable 3
   client.print("&temperature=");
-  client.print(temperature);
-  client.println(" HTTP/1.1"); //header http
+  client.print(temperature); //Variable 4
+  client.println(" HTTP/1.1"); //Header http
   client.println();
   Serial.println("**Valeurs envoyées");
   client.stop();
