@@ -144,7 +144,7 @@ float Chaleur(){
    Serial.println("Trop chaud");                           // Affiche "Trop chaud"
  }
 
- if (temperature < 25) {                                   // Si température < 25°C
+ if (temperature < 27) {                                   // Si température < 25°C
 
    digitalWrite(ventilateur,LOW);                          // Désactive le ventilateur
   // ventilateurEtat = 0;
