@@ -134,7 +134,7 @@ float Chaleur(){
  R = R0*R;
  float temperature = 1.0/(log(R/R0)/B+1/298.15)-273.15;    // Convertis en température
  Serial.print("temperature = ");                           // Affiche "temperature ="
- Serial.println(a);                                        // Affiche la température
+ Serial.println(temperature);                                        // Affiche la température
  if (temperature >= 30){                                   // Si température > 30°C
 
    digitalWrite(ventilateur,HIGH);                         // Active le ventilateur
