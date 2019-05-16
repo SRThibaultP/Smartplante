@@ -24,7 +24,7 @@ else {
   $ventilateurTXT = "Le ventilateur est à l'arrêt";
 }
 
-$humidite = (int)(($humidite / 730) * 100);
+$humidite = (int)(($humidite / 1023) * 100);
 
 
 echo '<!DOCTYPE html>
