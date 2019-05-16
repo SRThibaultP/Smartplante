@@ -94,23 +94,24 @@ void Initialisation(){
 int ProgMoteur(int CaptMarche, int CaptStop) {
   int ValMarche = digitalRead(CaptMarche);
   int ValStop = digitalRead(CaptStop);
-
+  int ValSecurit = digitalRead(CaptFinDeCourse);
   digitalWrite(relay1,LOW);
   digitalWrite(relay2,LOW);
-
+ if (ValSecurit ==0){
   if(ValMarche == 0 && ValStop == 0) {
     Serial.println("Mise en marche du moteur");
 
     digitalWrite(relay1, HIGH);
     digitalWrite(relay2, LOW);
 
-    while(ValStop == 0){ //Tant que capteur 1 detecte une présence on continue la montée du moteur
+    while(ValStop == 0 && ValSecurit ==0){ //Tant que capteur 1 detecte une présence on continue la montée du moteur
 
       digitalWrite(relay1, HIGH);
       digitalWrite(relay2, LOW);
 
       Serial.println("Moteur stade Marche");
       ValStop = digitalRead(CaptStop);
+      ValSecurit = digitalRead(CaptFinDeCourse);
     }
   }
 
@@ -121,6 +122,7 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
 
     Serial.println("Moteur stade Arret");
   }
+}
 
   Serial.print("La distance capteur obstacle est de : ");
   long Distance = ultrasonic.MeasureInCentimeters(); // Envoie de la distance en centimétre entre le capteur Ultrason et le Sol
