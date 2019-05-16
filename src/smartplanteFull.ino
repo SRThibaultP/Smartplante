@@ -28,6 +28,7 @@ int sensorPin = A1;                  //initialisation variable SensorPin (capteu
 int sensorValue = 0;                 //initialisation variable du capteur sur O
 int vanPin = 5;
 float temp = 0;
+int flotte = 0;
 
 
 void setup() {
@@ -50,9 +51,9 @@ Serial.println("Après l'initialisation");
 void loop(){
 connexion(); //Appel du sous-programme de connexion
 pirs = ProgMoteur(pir2, pir1); //Appel du sous-programme gestion moteur + réception de la hauteur
-humidite(); //Appel du sous-programme gestion motopompe
+flotte = humidite(); //Appel du sous-programme gestion motopompe
 temp = Chaleur();
-requete(pirs, ventilateurEtat, vanPin, temp); //Appel du sous-programme envoie de données sur le site
+requete(pirs, ventilateurEtat, flotte, temp); //Appel du sous-programme envoie de données sur le site
 Serial.println("Après la boucle");
 }
 
@@ -152,7 +153,7 @@ return temperature;
 
 
   /*SOUS PROGRAMME GESTION MOTOPOMPE*/
-void humidite (){
+int humidite (){
 sensorValue = analogRead(sensorPin); //lecture de la valeur analogique par le capteur et stockage dans variable sensorValue
 Serial.print("humidite = " );        //écriture sur le moniteur série de humidité
 Serial.println(sensorValue);         //écriture sur le moniteur série de la valeur numerique de SensorValue
@@ -165,8 +166,10 @@ if (sensorValue<732) {               // Si la valeur numérique est inférieur �
 
 if (sensorValue>732) {               // Si la valeur numérique est supérieur à 732
   digitalWrite(vanPin,LOW);          // ferme la vanne (commande le relais qui met en marche la pompe)
-  delay(1000);                       // pause 1 seconde
-  }
+  delay(1000);
+}
+  return sensorValue;                       // pause 1 seconde
+
 }
 
   //SOUS PROGRAMME CONNEXION
