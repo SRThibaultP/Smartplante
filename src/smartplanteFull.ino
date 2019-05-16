@@ -41,6 +41,7 @@ pinMode(CaptFinDeCourse, INPUT);
 pinMode(relay1, OUTPUT); //Mode Sortie d'Arduino
 pinMode(relay2,OUTPUT);
 pinMode(vanPin, OUTPUT);
+pinMode(ventilateur,OUTPUT);
 
 Serial.println("Avant l'initialisation");
 Initialisation(); //Appel du sous-programme d'initialisation
@@ -139,14 +140,14 @@ float Chaleur(){
  if (temperature >= 30){                                   // Si température > 30°C
 
    digitalWrite(ventilateur,HIGH);                         // Active le ventilateur
-   ventilateurEtat = 1;
+   //ventilateurEtat = 1;
    Serial.println("Trop chaud");                           // Affiche "Trop chaud"
  }
 
  if (temperature < 25) {                                   // Si température < 25°C
 
    digitalWrite(ventilateur,LOW);                          // Désactive le ventilateur
-   ventilateurEtat = 0;
+  // ventilateurEtat = 0;
  }
 return temperature;
 }
