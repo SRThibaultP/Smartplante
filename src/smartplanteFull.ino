@@ -92,21 +92,27 @@ void Initialisation(){
 
   /*SOUS PROGRAMME GESTION MOTEUR/LAMPE*/
 int ProgMoteur(int CaptMarche, int CaptStop) {
-  int ValMarche = digitalRead(CaptMarche);
-  int ValStop = digitalRead(CaptStop);
+  int ValMarche = digitalRead(CaptMarche); //Lecture de pir2
+  int ValStop = digitalRead(CaptStop); //Lecture de pir1
+  /* Ici une nouvelle variable est déclarée par rapport à l'algorigramme
+  sa présence sert à effectuer un test pour vérifier que la lampe n'est pas
+  montée trop haute*/
   int ValSecurit = digitalRead(CaptFinDeCourse);
-  digitalWrite(relay1,LOW);
-  digitalWrite(relay2,LOW);
+  digitalWrite(relay1,LOW); //Mise en arret du moteur
+  digitalWrite(relay2,LOW); //Mise en arret du moteur
  if (ValSecurit ==0){
-  if(ValMarche == 0 && ValStop == 0) {
+   if(ValMarche == 0 && ValStop == 0) { /* Test si présence de la plante pour
+                                           les 2 capteurs de présence */
     Serial.println("Mise en marche du moteur");
 
-    digitalWrite(relay1, HIGH);
-    digitalWrite(relay2, LOW);
+    digitalWrite(relay1, HIGH); //Mise en marche du moteur
+    digitalWrite(relay2, LOW); //Le moteur monte
 
-    while(ValStop == 0 && ValSecurit ==0){ //Tant que capteur 1 detecte une présence on continue la montée du moteur
+    while(ValStop == 0 && ValSecurit ==0){ /*Tant que pir1 detecte
+                                            une présence on continue la montée
+                                            du moteur*/
 
-      digitalWrite(relay1, HIGH);
+      digitalWrite(relay1, HIGH); //Le moteur continue de monter
       digitalWrite(relay2, LOW);
 
       Serial.println("Moteur stade Marche");
@@ -115,21 +121,29 @@ int ProgMoteur(int CaptMarche, int CaptStop) {
     }
   }
 
-  if(ValStop == 1) { //Si capteur 1 ne détecte rien
+  if(ValStop == 1) { //Si pir1 ne détecte pas la plante
 
-    digitalWrite(relay1, LOW);
-    digitalWrite(relay2, LOW);
+    digitalWrite(relay1, LOW); //Mise en arret du moteur
+    digitalWrite(relay2, LOW); //Mise en arret du moteur
 
     Serial.println("Moteur stade Arret");
   }
 }
+  /*Cette partie du programme sert à connaitre
+  la distance entre le capteur à Ultrason.
+  Cela donne alors la hauteur de la plante*/
 
   Serial.print("La distance capteur obstacle est de : ");
-  long Distance = ultrasonic.MeasureInCentimeters(); // Envoie de la distance en centimétre entre le capteur Ultrason et le Sol
+  long Distance = ultrasonic.MeasureInCentimeters(); /* Envoie de la distance
+                                                      en centimétre entre
+                                                      le capteur Ultrason
+                                                      et le Sol*/
   Serial.print(Distance);
   Serial.println(" cm");
   delay(1000);
-  return(Distance);
+  return(Distance); /*Le sous programme renvoie alors comme valeur
+                      la distance en centimétre entre
+                      le capteur Ultrason et le Sol*/
 }
 
 float Chaleur(){
